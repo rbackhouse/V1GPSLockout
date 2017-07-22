@@ -1,0 +1,29 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "org.potpie.valentine1.gpslockout"
+        },
+        "cordova-plugin-ble-central": {
+            "BLUETOOTH_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "org.potpie.valentine1.gpslockout"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "org.potpie.valentine1.gpslockout"
+        },
+        "cordova-plugin-potpie-location-service": {
+            "PACKAGE_NAME": "org.potpie.valentine1.gpslockout"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "org.potpie.valentine1.gpslockout"
+        }
+    }
+}

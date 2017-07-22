@@ -1,0 +1,37 @@
+<ons-toolbar>
+  <div class="left">
+		<ons-toolbar-button (click)="openMenu()">
+	  		<ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+		</ons-toolbar-button>
+  	</div>
+  	<div class="center">{{alertDoc.alert.band}} - {{alertDoc.alert.frequency}} GHz</div>
+  	<div class="right">
+		<ons-toolbar-button (click)="connect()">
+			<ons-icon style="color: red;" icon="fa-link" *ngIf="connected"></ons-icon>
+			<ons-icon icon="fa-unlink" *ngIf="!connected"></ons-icon>
+		</ons-toolbar-button>
+  	</div>
+</ons-toolbar>
+<div class="content">
+	<ons-card>
+		<div class="content">
+			<ons-list>
+            	<ons-list-header>Locations</ons-list-header>
+            	<ons-list-item *ngFor="let location of alertDoc.locations">
+            		<span class="list-item__subtitle"><b>Latitude:</b> <i>{{location.lat}}</i></span>
+            		<span class="list-item__subtitle"><b>Longitude:</b> <i>{{location.lng}}</i></span>
+            		<span class="list-item__subtitle"><b>Direction:</b> <i>{{location.direction}}</i></span>
+            		<span class="list-item__subtitle"><b>Front:</b> <i>{{location.frontSignalStrength}}</i></span>
+            		<span class="list-item__subtitle"><b>Rear:</b> <i>{{location.rearSignalStrength}}</i></span>
+            		<span class="list-item__subtitle"><b>Timestamp:</b> <i>{{location.timestamp}}</i></span>
+            	</ons-list-item>
+	        </ons-list>		
+		</div>
+    </ons-card>
+</div>
+<ons-speed-dial position="right bottom" direction="up">
+	<ons-fab><ons-icon icon="md-plus"></ons-icon></ons-fab>
+	<ons-speed-dial-item (click)="flag()">
+  		<ons-icon icon="fa-flag"></ons-icon>
+	</ons-speed-dial-item>
+</ons-speed-dial>	

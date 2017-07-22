@@ -1,0 +1,29 @@
+<ons-toolbar>
+  	<div class="left">
+		<ons-toolbar-button (click)="openMenu()">
+	  		<ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+		</ons-toolbar-button>
+  	</div>
+  	<div class="center">{{title}}</div>
+  	<div class="right">
+		<ons-toolbar-button (click)="connect()">
+			<ons-icon style="color: red;" icon="fa-link" *ngIf="connected"></ons-icon>
+			<ons-icon icon="fa-unlink" *ngIf="!connected"></ons-icon>
+		</ons-toolbar-button>
+  	</div>
+</ons-toolbar>
+<div class="content">
+	<ons-list>
+		<ons-list-item *ngFor="let logMsg of logMsgs">
+			<span class="list-item__subtitle"><b>Time:</b> <i>{{logMsg.formatedTime}}</i></span>
+			<span class="list-item__subtitle"><b>Level:</b> <i>{{logMsg.formattedLevel}}</i></span>
+			<span class="list-item__subtitle"><b>Message:</b> <i>{{logMsg.msg}}</i></span>
+		</ons-list-item>
+	</ons-list>
+</div>
+<ons-speed-dial position="right bottom" direction="up">
+	<ons-fab><ons-icon icon="md-plus"></ons-icon></ons-fab>
+	<ons-speed-dial-item (click)="clear()">
+	  <ons-icon icon="fa-trash"></ons-icon>
+	</ons-speed-dial-item>
+</ons-speed-dial>	

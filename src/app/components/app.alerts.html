@@ -1,0 +1,44 @@
+<ons-toolbar>
+  	<div class="left">
+		<ons-toolbar-button (click)="openMenu()">
+	  		<ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+		</ons-toolbar-button>
+  	</div>
+  	<div class="center">{{title}}</div>
+  	<div class="right">
+		<ons-toolbar-button (click)="connect()">
+			<ons-icon style="color: red;" icon="fa-link" *ngIf="connected"></ons-icon>
+			<ons-icon icon="fa-unlink" *ngIf="!connected"></ons-icon>
+		</ons-toolbar-button>
+  	</div>
+</ons-toolbar>
+<div class="content">
+	<ons-list>
+		<ons-list-item *ngFor="let alert of alerts" modifier="chevron" tappable>
+			<div class="left">
+				<ons-icon *ngIf="alert.front" style="color: red;" icon="fa-arrow-up" class="list-item__icon"></ons-icon>
+				<ons-icon *ngIf="alert.side" style="color: red;" icon="fa-arrow-h" class="list-item__icon"></ons-icon>
+				<ons-icon *ngIf="alert.rear" style="color: red;" icon="fa-arrow-down" class="list-item__icon"></ons-icon>
+			</div>
+			<div class="center">
+				<span class="list-item__subtitle">{{alert.band}} - {{alert.frequency}} GHz</span>
+				<span class="list-item__subtitle">Front:
+					<ons-icon *ngFor="let i of alert.frontLEDs" size="10px" style="color: red;" icon="fa-bullseye"></ons-icon>
+				</span>
+				<span class="list-item__subtitle">Rear:
+					<ons-icon *ngFor="let i of alert.rearLEDs" size="10px" style="color: red;" icon="fa-bullseye"></ons-icon>
+				</span>
+				<span class="list-item__subtitle">
+					Index: {{alert.index}} Count: {{alert.count}}
+				</span>
+				<span class="list-item__subtitle">{{alert.timestamp}}</span>
+			</div>	
+		</ons-list-item>
+	</ons-list>
+</div>
+<ons-speed-dial position="right bottom" direction="up">
+	<ons-fab><ons-icon icon="md-plus"></ons-icon></ons-fab>
+	<ons-speed-dial-item (click)="simulate()">
+	  <ons-icon icon="fa-repeat"></ons-icon>
+	</ons-speed-dial-item>
+</ons-speed-dial>	
