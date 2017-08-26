@@ -1,0 +1,16 @@
+<ons-toolbar>
+  	<div class="left">
+		<ons-toolbar-button (click)="back()">
+	  		<ons-icon icon="fa-undo"></ons-icon>
+		</ons-toolbar-button>
+  	</div>
+  	<div class="center">{{alertDoc.alert.band}} Band - {{alertDoc.alert.frequency}} GHz</div>
+  	<div class="right">
+		<ons-toolbar-button (click)="connect()">
+			<ons-icon style="color: red;" icon="fa-link" *ngIf="connected"></ons-icon>
+			<ons-icon icon="fa-unlink" *ngIf="!connected"></ons-icon>
+		</ons-toolbar-button>
+  	</div>
+</ons-toolbar>
+<div class="content">
+</div>
