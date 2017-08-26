@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0207DA571B56EA530066E2B4 /* Images.xcassets */; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
@@ -20,6 +19,11 @@
 		799FF6751BF04292841549A4 /* BLECommandContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 866A426E1AB6421E912C735E /* BLECommandContext.m */; };
 		C7F561159C194DA895F398C2 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC40F8C3A30C423E9F499A01 /* CoreBluetooth.framework */; };
 		CD7DF9A1669E4100B281DAFD /* CBPeripheral+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF0BE371E6A4A6799D98ECF /* CBPeripheral+Extensions.m */; };
+		F6E022011F2377EC0088654D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6E022001F2377EC0088654D /* MapKit.framework */; };
+		9AED63435157465FB295D627 /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED8DDF72A69747C6B002C9CD /* AsyncImageView.m */; };
+		34FDCD42B0804DF0A50E59AE /* CDVAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 921F9F810A63480F96ADD8E7 /* CDVAnnotation.m */; };
+		9AAB826167E243EEA32E46A3 /* MapKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D80BDBE1D7DE4E80B6069BD0 /* MapKit.m */; };
+		27A784171AEE43018325D426 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E981866611554A79A44CE9AA /* icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,8 +73,16 @@
 		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		ED33DF2A687741AEAF9F8254 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		F6E022001F2377EC0088654D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "V1 GPS Lockout/config.xml"; sourceTree = "<group>"; };
 		FC40F8C3A30C423E9F499A01 /* CoreBluetooth.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		ED8DDF72A69747C6B002C9CD /* AsyncImageView.m */ = {isa = PBXFileReference; name = "AsyncImageView.m"; path = "com.phonegap.plugins.mapkit/AsyncImageView.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		921F9F810A63480F96ADD8E7 /* CDVAnnotation.m */ = {isa = PBXFileReference; name = "CDVAnnotation.m"; path = "com.phonegap.plugins.mapkit/CDVAnnotation.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		D80BDBE1D7DE4E80B6069BD0 /* MapKit.m */ = {isa = PBXFileReference; name = "MapKit.m"; path = "com.phonegap.plugins.mapkit/MapKit.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		5B9716D31A144E289113B0D1 /* AsyncImageView.h */ = {isa = PBXFileReference; name = "AsyncImageView.h"; path = "com.phonegap.plugins.mapkit/AsyncImageView.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		F286D0D72EB245CB8527DC18 /* CDVAnnotation.h */ = {isa = PBXFileReference; name = "CDVAnnotation.h"; path = "com.phonegap.plugins.mapkit/CDVAnnotation.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		66E6CB68A63A4CFEBFAD833F /* MapKit.h */ = {isa = PBXFileReference; name = "MapKit.h"; path = "com.phonegap.plugins.mapkit/MapKit.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		E981866611554A79A44CE9AA /* icon.png */ = {isa = PBXFileReference; name = "icon.png"; path = "icon.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +91,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
+				F6E022011F2377EC0088654D /* MapKit.framework in Frameworks */,
 				C7F561159C194DA895F398C2 /* CoreBluetooth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -142,6 +155,7 @@
 				3047A50E1AB8057F00498E2A /* config */,
 				8D1107310486CEB800E47090 /* V1 GPS Lockout-Info.plist */,
 				6AFF5BF81D6E424B00AB3073 /* CDVLaunchScreen.storyboard */,
+				E981866611554A79A44CE9AA /* icon.png */,
 			);
 			name = Resources;
 			path = "V1 GPS Lockout/Resources";
@@ -150,6 +164,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F6E022001F2377EC0088654D /* MapKit.framework */,
 				FC40F8C3A30C423E9F499A01 /* CoreBluetooth.framework */,
 			);
 			name = Frameworks;
@@ -186,6 +201,12 @@
 				709376F127A8400591F8151A /* CDVLogger.h */,
 				65579DA3C4C34BDC8031C9B3 /* LocationService.m */,
 				B79DED2B28D9483AB6031889 /* LocationService.h */,
+				ED8DDF72A69747C6B002C9CD /* AsyncImageView.m */,
+				921F9F810A63480F96ADD8E7 /* CDVAnnotation.m */,
+				D80BDBE1D7DE4E80B6069BD0 /* MapKit.m */,
+				5B9716D31A144E289113B0D1 /* AsyncImageView.h */,
+				F286D0D72EB245CB8527DC18 /* CDVAnnotation.h */,
+				66E6CB68A63A4CFEBFAD833F /* MapKit.h */,
 			);
 			name = Plugins;
 			path = "V1 GPS Lockout/Plugins";
@@ -232,6 +253,11 @@
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = P9NAZG5MLK;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -275,6 +301,7 @@
 				302D95F214D2391D003F00A1 /* MainViewController.xib in Resources */,
 				0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */,
 				6AFF5BF91D6E424B00AB3073 /* CDVLaunchScreen.storyboard in Resources */,
+				27A784171AEE43018325D426 /* icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +338,9 @@
 				799FF6751BF04292841549A4 /* BLECommandContext.m in Sources */,
 				489D291F26F04033AA6B486C /* CDVLogger.m in Sources */,
 				3964B69DC60D46EAB01BF97F /* LocationService.m in Sources */,
+				9AED63435157465FB295D627 /* AsyncImageView.m in Sources */,
+				34FDCD42B0804DF0A50E59AE /* CDVAnnotation.m in Sources */,
+				9AAB826167E243EEA32E46A3 /* MapKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

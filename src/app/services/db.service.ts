@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable'
+
 import { Logger } from './logger.service';
 
 var PouchDB = require("pouchdb");
@@ -59,78 +61,96 @@ export class DBService {
 	}
 
 	addAlert(alert:any, location:any, timestamp:any) {
-		let d = new Date(timestamp);
-		this.v1db.get(alert.frequency).catch((err:any) => {
-			if (err.name === 'not_found') {
-				this.v1db.put({
-					_id: alert.frequency, 
-					alert: {frequency: alert.frequency, band: alert.band}, 
-					locations: [{
-						lat: location.latitude, 
-						lng: location.longitude, 
-						direction: alert.direction, 
-						frontSignalStrength: alert.frontSignalStrength,
-						rearSignalStrength: alert.rearSignalStrength,
-						timestamp: timestamp
-					}]
-				});
-				return {};
-			} else {
-				throw err;
-			}
-		}).then((alertDoc:any) => {
-			if (alertDoc.alert) {
-				let update = false;
-				let addLocation = true;
-				alertDoc.locations.forEach((l:any) => {
-					if (l.lat === location.latitude && l.lng === location.longitude) {
-						addLocation = false;
+		let result: Observable<any> = new Observable((observer:any) => {
+			let d = new Date(timestamp);
+			this.v1db.get(alert.frequency).catch((err:any) => {
+				if (err.name === 'not_found') {
+					let alertDoc = {
+						_id: alert.frequency, 
+						alert: {frequency: alert.frequency, band: alert.band}, 
+						locations: [{
+							lat: location.latitude, 
+							lng: location.longitude, 
+							direction: alert.direction, 
+							frontSignalStrength: alert.frontSignalStrength,
+							rearSignalStrength: alert.rearSignalStrength,
+							timestamp: timestamp,
+							muted: false;
+						}]
+					};
+					this.v1db.put(alertDoc);
+					observer.next(alertDoc);
+					observer.complete();
+				} else {
+					throw err;
+				}
+			}).then((alertDoc:any) => {
+				if (alertDoc.alert) {
+					let update = false;
+					let addLocation = true;
+					alertDoc.locations.forEach((l:any) => {
+						if (l.lat === location.latitude && l.lng === location.longitude) {
+							addLocation = false;
+						}
+					});
+					if (addLocation) {
+						alertDoc.locations.push({
+							lat: location.latitude, 
+							lng: location.longitude, 
+							direction: alert.direction, 
+							frontSignalStrength: alert.frontSignalStrength,
+							rearSignalStrength: alert.rearSignalStrength,
+							timestamp: timestamp,
+							muted: false;
+						});
+						update = true;
+					}
+					if (update) {
+						this.v1db.put(alertDoc);
+					}
+				}
+				observer.next(alertDoc);
+				observer.complete();
+			}).catch((err:any) => {
+				this.logger.log(Logger.ERROR, "Failed to add alert to V1 DB ["+err.name+" : "+err.message+"]");
+				observer.error(err);
+			});		
+		});	
+		return result;
+	}
+	
+	getAlerts() {
+		let result: Observable<any> = new Observable((observer:any) => {
+			this.v1db.allDocs({
+				include_docs: true
+			}).then((result:any) => {
+				let alerts:any = [];
+				result.rows.forEach((row:any) => {
+					if (row.doc.alert) {
+						alerts.push(row.doc);
 					}
 				});
-				if (addLocation) {
-					alertDoc.locations.push({
-						lat: location.latitude, 
-						lng: location.longitude, 
-						direction: alert.direction, 
-						frontSignalStrength: alert.frontSignalStrength,
-						rearSignalStrength: alert.rearSignalStrength,
-						timestamp: timestamp
-					});
-					update = true;
-				}
-				if (update) {
-					this.v1db.put(alertDoc);
-				}
-			}	
-		}).catch((err:any) => {
-			this.logger.log(Logger.ERROR, "Failed to add alert to V1 DB ["+err.name+" : "+err.message+"]");
-		});			
+				observer.next(alerts);
+				observer.complete();
+			}).catch((err:any) => {
+				observer.error(err);
+			});	
+		});	
+		return result;
 	}
 	
-	getAlerts(cb:any) {
-		this.v1db.allDocs({
-			include_docs: true
-		}).then((result:any) => {
-			let alerts:any = [];
-			result.rows.forEach((row:any) => {
-				if (row.doc.alert) {
-					alerts.push(row.doc);
-				}
-			});
-			cb(undefined, alerts);	  
-		}).catch((err:any) => {
-			cb(err);
-		});			
-	}
-	
-	getAlert(frequency:any, cb:any) {
-		this.v1db.get(frequency)
-		.then((alertDoc:any) => {
-			cb(undefined, alertDoc);
-		}).catch((err:any) => {
-			this.logger.log(Logger.ERROR, "Failed to get alert ["+err.name+" : "+err.message+"]");
-			cb(err);
-		});			
+	getAlert(frequency:any) {
+		let result: Observable<any> = new Observable((observer:any) => {
+			this.v1db.get(frequency)
+			.then((alertDoc:any) => {
+				observer.next(alertDoc);
+				observer.complete();
+			}).catch((err:any) => {
+				this.logger.log(Logger.ERROR, "Failed to get alert ["+err.name+" : "+err.message+"]");
+				observer.error(err);
+			});		
+		});
+		return result;
 	}
 	
 	clear() {
@@ -142,13 +162,17 @@ export class DBService {
 		});		
 	}
 	
-	replicate(to:any, cb:any) {
-		this.v1db.replicate.to(to, {timeout: 60000}).then((result:any) => {
-			this.logger.log(Logger.INFO, "V1 DB copied to "+to);
-			cb(undefined, result);
-		}).catch((err:any) => {
-			this.logger.log(Logger.ERROR, "Failed to copy V1 DB to "+to+" ["+err.name+" : "+err.message+"]");
-			cb(err);
-		});			
+	replicate(to:any) {
+		let result: Observable<any> = new Observable((observer:any) => {
+			this.v1db.replicate.to(to, {timeout: 60000}).then((result:any) => {
+				this.logger.log(Logger.INFO, "V1 DB copied to "+to);
+				observer.next(result);
+				observer.complete();
+			}).catch((err:any) => {
+				this.logger.log(Logger.ERROR, "Failed to copy V1 DB to "+to+" ["+err.name+" : "+err.message+"]");
+				observer.error(err);
+			});			
+		});
+		return result;
 	}
 }

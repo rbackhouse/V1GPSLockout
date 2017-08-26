@@ -31,6 +31,14 @@ module.exports = [
         "clobbers": [
             "window.locationService"
         ]
+    },
+    {
+        "id": "com.phonegap.plugins.mapkit.mapkit",
+        "file": "plugins/com.phonegap.plugins.mapkit/www/MapKit.js",
+        "pluginId": "com.phonegap.plugins.mapkit",
+        "clobbers": [
+            "mapKit"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -40,7 +48,8 @@ module.exports.metadata =
     "cordova-plugin-compat": "1.1.0",
     "cordova-plugin-ble-central": "1.1.4",
     "cordova-plugin-console": "1.0.7",
-    "cordova-plugin-potpie-location-service": "1.0.0"
+    "cordova-plugin-potpie-location-service": "1.0.0",
+    "com.phonegap.plugins.mapkit": "0.9.3"
 };
 // BOTTOM OF METADATA
 });

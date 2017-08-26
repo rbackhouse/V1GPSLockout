@@ -14,11 +14,11 @@
 </ons-toolbar>
 <div class="content">
 	<ons-list>
-		<ons-list-item *ngFor="let alert of alerts" modifier="chevron" tappable>
+		<ons-list-item *ngFor="let alert of alerts" modifier="chevron" (click)="clicked(alert.frequency) tappable>
 			<div class="left">
-				<ons-icon *ngIf="alert.front" style="color: red;" icon="fa-arrow-up" class="list-item__icon"></ons-icon>
-				<ons-icon *ngIf="alert.side" style="color: red;" icon="fa-arrow-h" class="list-item__icon"></ons-icon>
-				<ons-icon *ngIf="alert.rear" style="color: red;" icon="fa-arrow-down" class="list-item__icon"></ons-icon>
+				<ons-icon *ngIf="alert.front" size="3x" style="color: red;" icon="fa-arrow-up" class="list-item__icon"></ons-icon>
+				<ons-icon *ngIf="alert.side" size="3x" style="color: red;" icon="fa-arrows-h" class="list-item__icon"></ons-icon>
+				<ons-icon *ngIf="alert.rear" size="3x" style="color: red;" icon="fa-arrow-down" class="list-item__icon"></ons-icon>
 			</div>
 			<div class="center">
 				<span class="list-item__subtitle">{{alert.band}} - {{alert.frequency}} GHz</span>

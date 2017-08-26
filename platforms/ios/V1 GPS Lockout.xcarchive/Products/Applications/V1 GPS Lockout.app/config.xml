@@ -25,6 +25,9 @@
         <param name="ios-package" value="LocationService" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="MapKit">
+        <param name="ios-package" value="MapKitView" />
+    </feature>
     <name>V1 GPS Lockout</name>
     <description>
         V1 GPS Lockout App

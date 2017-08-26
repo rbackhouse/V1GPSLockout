@@ -265,6 +265,28 @@ class V1Connection {
 		);
 	}
 	
+	mute() {
+		let cmdData = V1Connection.packageCMDValue(0x34);
+		ble.writeWithoutResponse(this.device.id, this.serviceId, this.writeCharacteristic, cmdData.buffer, 
+			() => {
+			},
+			(err:any) => {
+				this.handleError(err);
+			}
+		);
+	}
+	
+	unmute() {
+		let cmdData = V1Connection.packageCMDValue(0x35);
+		ble.writeWithoutResponse(this.device.id, this.serviceId, this.writeCharacteristic, cmdData.buffer, 
+			() => {
+			},
+			(err:any) => {
+				this.handleError(err);
+			}
+		);
+	}
+	
 	addListener(listener:any) {
 		this.listeners.push(listener);
 	}
@@ -569,6 +591,14 @@ export class V1Service {
 		return this.alertMap;
 	}
 	
+	mute() {
+		this.v1Connection.mute();
+	}
+	
+	unmute() {
+		this.v1Connection.unmute();
+	}
+	
 	simulate() {
 		let i = 0;
 						
@@ -596,10 +626,17 @@ export class V1Service {
 						let timestamp = Date.now();
 						let location = this.locationService.getLocation();
 						if (location && v1data.alert.index > 0) {
-							this.DB.addAlert(v1data.alert, location, timestamp);
+							this.DB.addAlert(v1data.alert, location, timestamp).subscribe(
+								(alertDoc:any) => {
+									console.log(alertDoc);
+									this.alertMap[v1data.alert.frequency] = {alert: v1data.alert, current: location, timestamp: timestamp, locations: alertDoc.locations};
+									this.alerts.next(this.alertMap[v1data.alert.frequency]);
+								},
+								(err:any) => {
+									this.logger.log(Logger.ERROR, "Failed to add alert : "+err);
+								}
+							);		
 						}
-						this.alertMap[v1data.alert.frequency] = {alert: v1data.alert, current: location, timestamp: timestamp};
-						this.alerts.next(this.alertMap[v1data.alert.frequency]);
 					} else if (v1data.display) {
 						this.displays.next(v1data.display);
 					} else if (v1data.state) {
@@ -616,7 +653,7 @@ export class V1Service {
 					this.logger.log(Logger.INFO, "V1 Connected");
 				});
 			} else {
-				this.logger.log(Logger.INFO, "V1 not connected : "+err);
+				this.logger.log(Logger.ERROR, "V1 not connected : "+err);
 			}
 		});
 	}

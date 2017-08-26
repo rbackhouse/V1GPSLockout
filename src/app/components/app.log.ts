@@ -14,8 +14,7 @@ import { V1Service } from '../services/v1.service';
 
 @Component({
   	selector: 'ons-page',
-  	templateUrl: './app.log.html',
-  	styleUrls: ['./app.log.css']
+  	templateUrl: './app.log.html'
 })
 @Header()
 export class LogComponent implements OnInit, OnDestroy {

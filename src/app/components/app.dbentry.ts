@@ -13,11 +13,11 @@ import { Header } from './app.header';
 import { Logger } from '../services/logger.service';
 import { V1Service } from '../services/v1.service';
 import { DBService } from '../services/db.service';
+import { MapComponent } from './app.map';
 
 @Component({
   	selector: 'ons-page',
-  	templateUrl: './app.dbentry.html',
-  	styleUrls: ['./app.dbentry.css']
+  	templateUrl: './app.dbentry.html'
 })
 @Header()
 export class DBEntryComponent implements OnInit, OnDestroy {
@@ -39,8 +39,8 @@ export class DBEntryComponent implements OnInit, OnDestroy {
 	}
 	
 	ngOnInit() {
-		this.DB.getAlert(this.ref.nativeElement.data.frequency, (err:any, alertDoc:any) => {
-			if (!err) {
+		this.DB.getAlert(this.ref.nativeElement.data.frequency).subscribe( 
+			(alertDoc:any) => {
 				this.alertDoc.alert = alertDoc.alert;
 				alertDoc.locations.forEach(
 					(location:any) => {
@@ -53,9 +53,9 @@ export class DBEntryComponent implements OnInit, OnDestroy {
 							rearSignalStrength: parseInt(parseInt(location.rearSignalStrength,16).toString(10))
 						});
 					}
-				);	
-			}
-		});
+				);
+			}	
+		);
 		this.v1Service.onStateChange().subscribe(
 			(state: any) => {
 				this.connected = state.connected;
@@ -70,5 +70,13 @@ export class DBEntryComponent implements OnInit, OnDestroy {
 	connect() {}
 	
 	flag() {
+	}
+
+	map() {
+		this.splitter.element.parentElement.content.load(MapComponent).then(
+			(page:any) => {
+				page.data = this.alertDoc;
+			}
+		);
 	}
 }

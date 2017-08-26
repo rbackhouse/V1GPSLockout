@@ -12,8 +12,7 @@ import { LogComponent } from './app.log';
 
 @Component({
   	selector: 'ons-page',
-  	templateUrl: './app.menu.html',
-  	styleUrls: ['./app.menu.css']
+  	templateUrl: './app.menu.html'
 })
 export class MenuComponent {
 

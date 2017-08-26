@@ -19,6 +19,9 @@
         },
         "cordova-plugin-potpie-location-service": {
             "PACKAGE_NAME": "org.potpie.valentine1.gpslockout"
+        },
+        "com.phonegap.plugins.mapkit": {
+            "PACKAGE_NAME": "org.potpie.valentine1.gpslockout"
         }
     },
     "dependent_plugins": {

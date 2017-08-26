@@ -11,12 +11,12 @@ import { ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 import { Header } from './app.header';
 import { Logger } from '../services/logger.service';
 import { V1Service } from '../services/v1.service';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
+import { AlertEntryComponent } from './app.alertentry';
 
 @Component({
   	selector: 'ons-page',
-  	templateUrl: './app.alerts.html',
-  	styleUrls: ['./app.alerts.css']
+  	templateUrl: './app.alerts.html'
 })
 @Header()
 export class AlertsComponent implements OnInit, OnDestroy {
@@ -70,6 +70,9 @@ export class AlertsComponent implements OnInit, OnDestroy {
 		this.alerts.length = 0;
 		for (var freq in this.alertMap) {
 			let alertEntry:any = this.alertMap[freq];
+			alertEntry.locations.forEach((location:any) => {
+				
+			});
 			if (now - alertEntry.timestamp < 180000) {
 				let a:any = {
 					band: alertEntry.alert.band,
@@ -90,5 +93,13 @@ export class AlertsComponent implements OnInit, OnDestroy {
 	
 	simulate() {
 		this.v1Service.simulate();
+	}
+	
+	clicked(frequency:any) {
+		this.splitter.element.parentElement.content.load(AlertEntryComponent).then(
+			(page:any) => {
+				page.data = this.alertMap[frequency];
+			}
+		);
 	}
 }

@@ -17,8 +17,7 @@ import { DBEntryComponent } from './app.dbentry';
 
 @Component({
   	selector: 'ons-page',
-  	templateUrl: './app.database.html',
-  	styleUrls: ['./app.database.css']
+  	templateUrl: './app.database.html'
 })
 @Header()
 export class DatabaseComponent implements OnInit, OnDestroy {
@@ -34,8 +33,8 @@ export class DatabaseComponent implements OnInit, OnDestroy {
 	}
 	
 	ngOnInit() {
-		this.DB.getAlerts((err: any, rows:any) => {
-			if (!err) {
+		this.DB.getAlerts().subscribe(
+			(rows:any) => {
 				rows.forEach((row:any) => {
 					if (row.alert.frequency) {
 						let entry = {
@@ -46,8 +45,8 @@ export class DatabaseComponent implements OnInit, OnDestroy {
 						this.dbEntries.push(entry);
 					}
 				});
-			}	
-		});
+			}
+		);
 		this.v1Service.onStateChange().subscribe(
 			(state: any) => {
 				this.connected = state.connected;
@@ -64,13 +63,14 @@ export class DatabaseComponent implements OnInit, OnDestroy {
 	copy() {
 		onsNotification.prompt({message: 'Enter DB URL'}).then((url:any) => {
 			console.log("URL:"+url);
-			this.DB.replicate(url, (err:any, result:any) => {
-				if (err) {
-					onsNotification.alert('DB Copy failed : '+err.message);
-				} else {
+			this.DB.replicate(url).subscribe(
+				(result:any) => {
 					onsNotification.alert('DB Copy succeeded');
+				},
+				(err:any) => {	
+					onsNotification.alert('DB Copy failed : '+err.message);
 				}
-			});
+			);
 		});
 	}
 	

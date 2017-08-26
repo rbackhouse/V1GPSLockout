@@ -21,6 +21,10 @@
                         {
                             "xml": "<feature name=\"LocationService\"><param name=\"ios-package\" value=\"LocationService\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"MapKit\"><param name=\"ios-package\" value=\"MapKitView\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -65,6 +69,9 @@
         },
         "cordova-plugin-potpie-location-service": {
             "PACKAGE_NAME": "org.potpie.valentine1.gpslockout"
+        },
+        "com.phonegap.plugins.mapkit": {
+            "PACKAGE_NAME": "org.potpie.valentine1.gpslockout"
         }
     },
     "dependent_plugins": {},
@@ -100,6 +107,14 @@
             "clobbers": [
                 "window.locationService"
             ]
+        },
+        {
+            "id": "com.phonegap.plugins.mapkit.mapkit",
+            "file": "plugins/com.phonegap.plugins.mapkit/www/MapKit.js",
+            "pluginId": "com.phonegap.plugins.mapkit",
+            "clobbers": [
+                "mapKit"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -107,6 +122,7 @@
         "cordova-plugin-compat": "1.1.0",
         "cordova-plugin-ble-central": "1.1.4",
         "cordova-plugin-console": "1.0.7",
-        "cordova-plugin-potpie-location-service": "1.0.0"
+        "cordova-plugin-potpie-location-service": "1.0.0",
+        "com.phonegap.plugins.mapkit": "0.9.3"
     }
 }
